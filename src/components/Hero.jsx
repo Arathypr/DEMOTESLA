@@ -23,9 +23,7 @@ const Hero = () => {
               <p className=" vvsm:text-base md:text-xl">{item.desc}</p>
             </div>
             <div className="flex flex-col mb-28 w-full gap-y-6 sm:flex">
-              {item.button.map((btnText, btnIndex) => (
-                <Button key={btnIndex} text={btnText} />
-              ))}
+              <Button />
             </div>
           </div>
         </div>
