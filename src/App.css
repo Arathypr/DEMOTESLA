@@ -1,0 +1,23 @@
+/* .nav-link {
+  transition: all 0.3s ease-in-out;
+}
+
+.hover {
+  height: 50vh !important;
+}
+
+/* .logo-container {
+  transition: all 0.3s ease-in-out;
+} */
+/*
+.logo-shift {
+  transform: translateY(-160px);
+} */
+.vehicle-card {
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.vehicle-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
