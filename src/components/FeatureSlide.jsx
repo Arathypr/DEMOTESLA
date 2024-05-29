@@ -1,116 +1,106 @@
+import React, { useState } from "react";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa"; // Import icons from react-icons
+import sliderimg1 from "../assets/images/img1.jpg";
+import sliderimg2 from "../assets/images/img2.jpg";
+import sliderimg3 from "../assets/images/img3.jpg";
+import sliderimg4 from "../assets/images/img4.jpg";
+import sliderimg5 from "../assets/images/img5.jpg";
 
-import React from "react";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-
-// Import images
-import sliderimg1 from "../assets/images/slideimg1.png";
-import sliderimg2 from "../assets/images/sliderimg2.png";
-import sliderimg3 from "../assets/images/sliderimg3.png";
-import sliderimg4 from "../assets/images/sliderimg4.png";
-import sliderimg5 from "../assets/images/sliderimg5.png";
-import sliderimg6 from "../assets/images/sliderimg6.png";
-
-// Slider settings
-const settings = {
-  dots: true,
-  infinite: true,
-  speed: 500,
-  slidesToShow: 1,
-  slidesToScroll: 1,
-  centerMode: true,
-  centerPadding: "0",
-  responsive: [
-    {
-      breakpoint: 1024,
-      settings: {
-        slidesToShow: 2,
-        slidesToScroll: 1,
-        infinite: true,
-        dots: true,
-      },
-    },
-    {
-      breakpoint: 600,
-      settings: {
-        slidesToShow: 1,
-        slidesToScroll: 1,
-      },
-    },
-  ],
-};
-
-// Data for slides
 const data = [
   {
     img: sliderimg1,
-    Review:
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Delectus in aut ullam autem suscipit illo, ratione, natus iste, rem itaque ea beatae nulla quis recusandae nobis fuga molestiae.",
+    title: "Basic Autopilot",
+    review:
+      " Enables your car to steer, accelerate and brake automatically for other vehicles and pedestrians within its lane. Advanced safety and convenience features are designed to assist you with the most burdensome parts of driving, alongside driver assistance features such as emergency braking, collision warning and blind-spot monitoring",
   },
   {
     img: sliderimg2,
-    Review:
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Delectus in aut ullam autem suscipit illo, ratione, natus iste, rem itaque ea beatae nulla quis recusandae nobis fuga molestiae.",
+    title: "Easy Charging",
+    review:
+      " Charge anywhere there is electricity. Most range used for daily driving can be topped off using the Mobile Connector Bundle and a 110V household outlet, or upgrade to a 220V Tesla Wall Connector for the best home charging experience. For long distance travel, Model Y adds up to 160 miles of range in just 15 minutes using Tesla’s Supercharger network, getting you back on the road, sooner.",
   },
   {
     img: sliderimg3,
-    Review:
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Delectus in aut ullam autem suscipit illo, ratione, natus iste, rem itaque ea beatae nulla quis recusandae nobis fuga molestiae.",
+    title: "Over-the-Air",
+    review:
+      "  Updates Model Y gets better over time with frequent wireless software updates, bringing you new features, more entertainment, higher performance and range, increased comfort and even better safety.",
   },
   {
     img: sliderimg4,
-    Review:
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Delectus in aut ullam autem suscipit illo, ratione, natus iste, rem itaque ea beatae nulla quis recusandae nobis fuga molestiae.",
+    title: "Expansive Storage",
+    review:
+      "Model Y features 76 ft³ of cargo space accessible through both the front trunk and the automatically opening and closing rear trunk. Taking advantage of the space traditionally occupied by bulky engines, gas tanks and transmissions, the design of Model Y enables disproportionately large amounts of storage for a car its size, while bolstering occupant safety through a more spacious, reinforced body and chassis.",
   },
   {
     img: sliderimg5,
-    Review:
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Delectus in aut ullam autem suscipit illo, ratione, natus iste, rem itaque ea beatae nulla quis recusandae nobis fuga molestiae.",
-  },
-  {
-    img: sliderimg6,
-    Review:
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Delectus in aut ullam autem suscipit illo, ratione, natus iste, rem itaque ea beatae nulla quis recusandae nobis fuga molestiae.",
+    title: "Tesla Mobile App",
+    review:
+      " Remotely control and monitor your Tesla with Phone Key keyless driving, range & charging status, climate control, live GPS location and more. You can even schedule service and monitor your entire Tesla ecosystem, including power flow from Powerwall or from Solar Roof and Solar Panels.",
   },
 ];
 
-function FeatureSlide({ isVisible, onClose }) {
+function OpenBookSlider({ isVisible, onClose }) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
   if (!isVisible) return null;
+
+  const handleNext = (e) => {
+    e.stopPropagation();
+    setCurrentIndex((prevIndex) =>
+      prevIndex === data.length - 1 ? 0 : prevIndex + 1
+    );
+  };
+
+  const handlePrev = (e) => {
+    e.stopPropagation();
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? data.length - 1 : prevIndex - 1
+    );
+  };
 
   return (
     <div
-      className="fixed inset-0 z-50 bg-black bg-opacity-70 flex items-center justify-center"
+      className=" fixed  inset-0 z-50 bg-black bg-opacity-60 flex items-center justify-center p-4 sm:p-8"
       onClick={onClose}
     >
-      <div
-        className="bg-white rounded-lg max-w-3xl w-full"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <div className="w-full">
-          <Slider {...settings}>
-            {data.map((d, index) => (
-              <div
-                key={index}
-                className="h-[450px] text-white text-opacity-30 bg-black border flex"
-              >
-                <div className="flex-1 flex justify-center items-center p-4">
-                  <img
-                    src={d.img}
-                    alt={`slide_image_${index}`}
-                    className="h-[50vh] w-full object-contain"
-                  />
-                </div>
-                <div className="flex-1 flex flex-col justify-center items-center p-4">
-                  <p className="text-center">{d.Review}</p>
-                </div>
-              </div>
-            ))}
-          </Slider>
+      <div className="relative flex items-center justify-center w-full max-w-3xl">
+        <button
+          onClick={handlePrev}
+          className="absolute left-2 sm:-left-4 text-white bg-gray-700 bg-opacity-50 p-2 sm:p-3 rounded-full z-10"
+        >
+          <FaChevronLeft />
+        </button>
+        <div
+          className="bg-white rounded-lg w-full p-4"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="flex flex-col sm:flex-row items-center transition-container">
+            <div className="flex-shrink-0 sm:mr-4 mb-4 sm:mb-0">
+              <img
+                src={data[currentIndex].img}
+                alt={`slide_image_${currentIndex}`}
+                className="h-[250px] sm:h-[300px] lg:h-[450px] w-full object-contain transition-slide "
+              />
+            </div>
+            <div className="flex-grow flex flex-col justify-center items-center text-center sm:text-left">
+              <h1 className="text-black text-xl sm:text-2xl font-medium pb-5">
+                {data[currentIndex].title}
+              </h1>
+              <p className="text-black text-sm text-left vvsm:text-sm sm:text-sm md:base transition-slide leading-5">
+                {data[currentIndex].review}
+              </p>
+            </div>
+          </div>
         </div>
+        <button
+          onClick={handleNext}
+          className="absolute right-2 sm:-right-4 text-white bg-gray-700 bg-opacity-50 p-2 sm:p-3 rounded-full z-10"
+        >
+          <FaChevronRight />
+        </button>
       </div>
     </div>
   );
 }
 
-export default FeatureSlide;
+export default OpenBookSlider;
